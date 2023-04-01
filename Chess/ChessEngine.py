@@ -15,3 +15,11 @@ class GameState():
             ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
             ["wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"]]
         self.whileToMove = True
+        self.moveLog = []
+
+class Move():
+
+    def __init__(self, startSq, endSq, board):
+        pass
+        #to define
+
