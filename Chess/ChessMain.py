@@ -46,7 +46,12 @@ def main():
                     sqSelected = (row, col)
                     playerClicks.append(sqSelected)
                 if len(playerClicks) == 2: #if its 2nd click
-                    ChessEngine.Move #to do next
+                    move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
+                    print(move.getChessNotation())
+                    gs.makeMove(move)
+                    # reset the clicks
+                    sqSelected = ()
+                    playerClicks = []
 
             drawGameState(screen, gs)
             clock.tick(MAX_FPS)
