@@ -32,7 +32,7 @@ class GameState:
             self.whiteToMove = not self.whiteToMove
 
     def getValidMoves(self):
-        pass
+        return
 
 
     def getAllPosibleMoves(self):
