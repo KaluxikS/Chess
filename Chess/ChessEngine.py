@@ -17,6 +17,7 @@ class GameState:
         self.whiteToMove = True
         self.moveLog = []
 
+
     def makeMove(self, move):
         self.board[move.startRow][move.startCol] = "--"
         self.board[move.endRow][move.endCol] = move.pieceMoved
@@ -31,7 +32,7 @@ class GameState:
             self.whiteToMove = not self.whiteToMove
 
     def getValidMoves(self):
-        return
+        pass
 
 
     def getAllPosibleMoves(self):
