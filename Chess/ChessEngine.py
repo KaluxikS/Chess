@@ -3,7 +3,7 @@ It will have information about the state of game.
 """
 
 
-class GameState():
+class GameState:
     def __init__(self):
         self.board = [
             ["bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"],
@@ -20,11 +20,18 @@ class GameState():
     def makeMove(self, move):
         self.board[move.startRow][move.startCol] = "--"
         self.board[move.endRow][move.endCol] = move.pieceMoved
-        self.moveLog.append(move) # add the move to logs
+        self.moveLog.append(move)  # add the move to logs
         self.whiteToMove = not self.whiteToMove
 
+    def undoMove(self):
+        if len(self.moveLog) != 0:
+            move = self.moveLog.pop()
+            self.board[move.startRow][move.startCol] = move.pieceMoved
+            self.board[move.endRow][move.endCol] = move.pieceCaptured
+            self.whiteToMove = not self.whiteToMove
 
-class Move():
+
+class Move:
     # for chess notation
     ranksToRows = {
         "1": 7, "2": 6, "3": 5, "4": 4,

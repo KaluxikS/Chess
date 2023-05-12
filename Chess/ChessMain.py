@@ -4,6 +4,7 @@ User input and displaying the board
 
 import pygame as p
 
+
 from Chess import ChessEngine
 
 WIDTH = HEIGHT = 512
@@ -35,23 +36,28 @@ def main():
         for e in p.event.get():
             if e.type == p.quit:
                 running = False
+            #  mouse
             elif e.type == p.MOUSEBUTTONDOWN:
                 location = p.mouse.get_pos()
-                col = location[0]//SQ_SIZE
-                row = location[1]//SQ_SIZE
-                if sqSelected == (row,col): #check if clicked the same square
+                col = location[0] // SQ_SIZE
+                row = location[1] // SQ_SIZE
+                if sqSelected == (row, col):  # check if clicked the same square
                     sqSelected = ()
-                    playerClicks = [] #clears the clicks
+                    playerClicks = []  # clears the clicks
                 else:
                     sqSelected = (row, col)
                     playerClicks.append(sqSelected)
-                if len(playerClicks) == 2: #if its 2nd click
+                if len(playerClicks) == 2:  # if its 2nd click
                     move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
                     print(move.getChessNotation())
                     gs.makeMove(move)
                     # reset the clicks
                     sqSelected = ()
                     playerClicks = []
+            # keyboard
+            elif e.type == p.KEYDOWN:  # when "z" is pressed
+                if e.key == p.K_z:
+                    gs.undoMove()
 
             drawGameState(screen, gs)
             clock.tick(MAX_FPS)
