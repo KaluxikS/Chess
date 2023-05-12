@@ -28,9 +28,6 @@ def main():
     clock = p.time.Clock()
     screen.fill(p.Color("white"))
     gs = ChessEngine.GameState()
-    validMoves = gs.getAllPosibleMoves()
-    moveMade = False
-
     loadImages()
     running = True
     sqSelected = ()
@@ -53,9 +50,7 @@ def main():
                 if len(playerClicks) == 2:  # if its 2nd click
                     move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
                     print(move.getChessNotation())
-                    if move in validMoves:
-                        gs.makeMove(move)
-                        moveMade = True
+                    gs.makeMove(move)
                     # reset the clicks
                     sqSelected = ()
                     playerClicks = []
@@ -63,11 +58,7 @@ def main():
             elif e.type == p.KEYDOWN:  # when "z" is pressed
                 if e.key == p.K_z:
                     gs.undoMove()
-                    moveMade = True
 
-            if moveMade:
-                validMoves = gs.getValidMoves()
-                moveMade = False
             drawGameState(screen, gs)
             clock.tick(MAX_FPS)
             p.display.flip()
