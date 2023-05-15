@@ -28,9 +28,8 @@ def main():
     clock = p.time.Clock()
     screen.fill(p.Color("white"))
     gs = ChessEngine.GameState()
-    validMoves = gs.getAllPosibleMoves()
+    validMoves = gs.getValidMoves()
     moveMade = False
-
     loadImages()
     running = True
     sqSelected = ()
