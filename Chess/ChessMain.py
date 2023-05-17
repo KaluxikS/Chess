@@ -73,7 +73,7 @@ def main():
 
 
 """
-Responsible for all graphics during game
+graphics during game
 """
 
 
