@@ -52,12 +52,16 @@ def main():
                 if len(playerClicks) == 2:  # if its 2nd click
                     move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
                     print(move.getChessNotation())
-                    if move in validMoves:
-                        gs.makeMove(move)
-                        moveMade = True
+                    for i in range(len(validMoves)):
+                        if move == validMoves[i]:
+                            gs.makeMove(validMoves[i])
+                            moveMade = True
+                            sqSelected = ()
+                            playerClicks = []
+                    if not moveMade:
                     # reset the clicks
-                    sqSelected = ()
-                    playerClicks = []
+                        playerClicks = [sqSelected]
+
             # keyboard
             elif e.type == p.KEYDOWN:  # when "z" is pressed
                 if e.key == p.K_z:

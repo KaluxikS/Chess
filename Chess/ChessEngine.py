@@ -5,6 +5,7 @@ It will have information about the state of game.
 
 class GameState:
     def __init__(self):
+
         self.board = [
             ["bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"],
             ["bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"],
@@ -14,6 +15,7 @@ class GameState:
             ["--", "--", "--", "--", "--", "--", "--", "--"],
             ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
             ["wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"]]
+
         self.moveFunctions = {'p': self.getPawnMoves, 'R': self.getRookMoves, 'N': self.getKnightMoves,
                               'B': self.getBishopMoves, 'Q': self.getQueenMoves, 'K': self.getKingMoves}
         self.whiteToMove = True
@@ -32,6 +34,9 @@ class GameState:
             self.whiteKingLoc = (move.endRow, move.endCol)
         elif move.pieceMoved == 'bK':
             self.blackKingLoc = (move.endRow, move.endCol)
+
+        if move.isPawnPromotion:
+            self.board[move.endRow][move.endCol] = move.pieceMoved[0] + 'Q'
 
         self.whiteToMove = not self.whiteToMove
 
@@ -77,7 +82,7 @@ class GameState:
         else:
             return self.squareUnderAttack(self.blackKingLoc[0], self.blackKingLoc[1])
 
-    def squareUnderAttack(self,r ,c):
+    def squareUnderAttack(self, r, c):
         self.whiteToMove = not self.whiteToMove
         oppMoves = self.getAllPossibleMoves()
         self.whiteToMove = not self.whiteToMove
@@ -213,6 +218,9 @@ class Move:
         self.endCol = endSq[1]
         self.pieceMoved = board[self.startRow][self.startCol]
         self.pieceCaptured = board[self.endRow][self.endCol]
+        self.isPawnPromotion = False
+        if (self.pieceMoved == 'wp' and self.endRow == 0) or (self.pieceMoved == 'bp' and self.endRow == 7):
+            self.isPawnPromotion = True
         self.moveID = self.startRow * 1000 + self.startCol * 100 + self.endRow * 10 + self.endCol
 
     def __eq__(self, other):
